@@ -1,0 +1,16 @@
+<mat-card class="grid content-around h-96">
+  <mat-card-header>
+    <mat-card-title>{{ product.title }}</mat-card-title>
+  </mat-card-header>
+  <img class="h-52" mat-card-image [src]="product.thumbnail" />
+  <mat-card-content class="h-full">
+    <p>
+      {{ product.description }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions class="place-content-end">
+    <button mat-button color="warn" (click)="this.delete.emit(product)">
+      Remove
+    </button>
+  </mat-card-actions>
+</mat-card>

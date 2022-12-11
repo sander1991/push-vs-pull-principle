@@ -1,0 +1,28 @@
+<div *ngIf="vm$ | async as vm">
+  <div class="m-3">
+    <mat-form-field appearance="fill">
+      <mat-label>Anzahl Produkte</mat-label>
+      <mat-select [formControl]="pageSizeCtrl">
+        <mat-option
+          *ngFor="let pageSize of vm.pagination.pageSizes"
+          [value]="pageSize"
+          >{{ pageSize }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <app-product-page
+    *ngIf="vm.stateType === 'DATA'"
+    [productPage]="vm.productPage"
+    (delete)="delete($event)"
+  ></app-product-page>
+
+  <div *ngIf="vm.stateType === 'LOADING'" class="grid place-content-center m-3">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div *ngIf="vm.stateType === 'ERROR'" class="grid place-content-center m-3">
+    <mat-error>Da ist was schief gelaufen!</mat-error>
+  </div>
+</div>

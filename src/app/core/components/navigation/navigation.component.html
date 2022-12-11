@@ -1,0 +1,51 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list *ngFor="let item of menu" #navigation>
+      <a mat-list-item routerLinkActive="mat-accent">
+        <div class="flex" [routerLink]="item.path">
+          {{ item.title }}
+          <mat-icon
+            class="ml-auto"
+            end
+            (click)="item.open = !item.open"
+            *ngIf="item.childrens"
+            >expand_more
+          </mat-icon>
+        </div>
+      </a>
+      <ng-container *ngIf="item.open">
+        <a
+          mat-list-item
+          [routerLink]="child.path"
+          *ngFor="let child of item.childrens"
+          routerLinkActive="mat-accent"
+        >
+          <div class="pad-left">{{ child.title }}</div>
+        </a>
+      </ng-container>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>{{ titleService.getTitle() }}</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
