@@ -28,11 +28,6 @@ export interface ProductPageState {
   pagination: Pagination;
   stateType: StateType;
 }
-
-/**
- * Hier ist ganz bewusst, kein providedIn: 'root' genommen.
- * Der State würde sonst beim Maskenwechsel bestehen bleiben
- */
 @Injectable({
   providedIn: 'root',
 })
